@@ -5,6 +5,9 @@ import com.rishad.springdata.product.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,62 +63,67 @@ class ProductdataApplicationTests {
         System.out.println("Total Records: " + productRepository.count());
     }
 
-
     @Test
-    public void testFindByName(){
-      List<Product> products= productRepository.findByName("IWatch");
+    public void testFindByName() {
+        List<Product> products = productRepository.findByName("IWatch");
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
     @Test
-    public void testFindByNameAndDesc(){
-        List<Product> products= productRepository.findByNameAndDesc("Washer","From LG Inc");
+    public void testFindByNameAndDesc() {
+        List<Product> products = productRepository.findByNameAndDesc("Washer", "From LG Inc");
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
     @Test
-    public void testFindByPriceGreaterThan(){
-        List<Product> products= productRepository.findByPriceGreaterThan(1000d);
+    public void testFindByPriceGreaterThan() {
+        List<Product> products = productRepository.findByPriceGreaterThan(1000d);
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
     @Test
-    public void testFindByDesContaining(){
-        List<Product> products= productRepository.findByDescContaining("Apple");
+    public void testFindByDesContaining() {
+        List<Product> products = productRepository.findByDescContaining("Apple");
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
     @Test
-    public void testFindByPriceBetween(){
-        List<Product> products= productRepository.findByPriceBetween(1000d,2000d);
+    public void testFindByPriceBetween() {
+        List<Product> products = productRepository.findByPriceBetween(1000d, 2000d);
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
     @Test
-    public void testFindByDescLike(){
-        List<Product> products= productRepository.findByDescLike("%LG%");
+    public void testFindByDescLike() {
+        List<Product> products = productRepository.findByDescLike("%LG%");
         for (Product product : products) {
             System.out.println(product.getName());
         }
     }
 
-
     @Test
-    public void testFindByIdIn(){
-        List<Product> products= productRepository.findByIdIn(Arrays.asList(1,2,3));
+    public void testFindByIdIn() {
+        List<Product> products = productRepository.findByIdIn(Arrays.asList(1, 2, 3));
         for (Product product : products) {
             System.out.println(product.getName());
         }
+    }
+
+    @Test
+    public void testPageable() {
+        Pageable pageable = PageRequest.of(0, 1);
+        Page<Product> results = productRepository.findAll(pageable);
+        results.forEach(p -> System.out.println(p.getName()));
     }
 
 }
