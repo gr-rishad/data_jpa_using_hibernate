@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
 import java.util.List;
@@ -120,10 +121,35 @@ class ProductdataApplicationTests {
     }
 
     @Test
+    public void testFindByIdInPagingAndSorting() {
+        Pageable pageable = PageRequest.of(1, 2);
+        List<Product> products = productRepository.findByIdIn(Arrays.asList(1, 2, 3), pageable);
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+    }
+
+    @Test
     public void testPageable() {
         Pageable pageable = PageRequest.of(0, 1);
         Page<Product> results = productRepository.findAll(pageable);
         results.forEach(p -> System.out.println(p.getName()));
+    }
+
+    @Test
+    public void testFindAllSorting() {
+
+        // productRepository.findAll(Sort.by(Sort.Direction.ASC,"name")).forEach(p-> System.out.println(p.getName()));
+
+        //  productRepository.findAll(Sort.by(Sort.Direction.ASC,"name","price")).forEach(p-> System.out.println(p.getName()));
+        // sort by multiple property (each own order)
+        productRepository.findAll(Sort.by(new Sort.Order(Sort.Direction.DESC, "name"), new Sort.Order(Sort.Direction.ASC, "price")));
+    }
+
+    @Test
+    public void testFindAllPagingAndSorting() {
+        Pageable pageable = PageRequest.of(0, 2, Sort.by("name").descending());
+        productRepository.findAll(pageable).forEach(p -> System.out.println(p.getName()));
     }
 
 }

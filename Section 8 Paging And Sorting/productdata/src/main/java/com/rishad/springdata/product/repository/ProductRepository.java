@@ -1,6 +1,7 @@
 package com.rishad.springdata.product.repository;
 
 import com.rishad.springdata.product.entities.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -22,5 +23,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
     List<Product> findByDescLike(String desc);
 
     List<Product> findByIdIn(List<Integer> ids);
+    // custom paging And Sorting
+    List<Product> findByIdIn(List<Integer> ids, Pageable pageable);
 
 }
