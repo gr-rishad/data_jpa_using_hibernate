@@ -5,14 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "card")
+//@DiscriminatorValue(value = "cc")
+@PrimaryKeyJoinColumn(name = "id")
 public class CreditCard extends Payment{
 
 
-    private String creditCard;
+    @Column(name = "cardnumber")
+    private String cardNumber;
 }
