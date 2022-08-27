@@ -1,13 +1,12 @@
 package com.associationsmapping.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,6 +18,6 @@ public class Customer {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<PhoneNumber> phoneNumber;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private Set<PhoneNumber> numbers;
 }

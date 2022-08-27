@@ -19,7 +19,7 @@ public class PhoneNumber {
     private String number;
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 }
