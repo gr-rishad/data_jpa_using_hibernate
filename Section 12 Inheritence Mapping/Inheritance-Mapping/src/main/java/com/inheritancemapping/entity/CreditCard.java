@@ -19,4 +19,6 @@ public class CreditCard extends Payment{
 
     @Column(name = "cardnumber")
     private String cardNumber;
+
+
 }
