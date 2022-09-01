@@ -20,8 +20,7 @@ class OneToOneApplicationTests {
     }
 
     @Test
-    public void testCreateLicense() {
-        License license = new License();
+    public void testCreateLicense() License license = new License();
         license.setType("CAR");
         license.setValidForm(LocalDate.now());
         license.setValidTo(LocalDate.now());
